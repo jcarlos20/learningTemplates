@@ -10,6 +10,8 @@ import { ProgressComponent } from './progress/progress.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
 import { PagesComponent } from './pages.component';
 import { AccountSettingsComponent } from './accountSettings/accountSettings.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { rxjsComponent } from './rxjs/rxjs.component';
 
 //Temporal
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
@@ -21,6 +23,8 @@ import { GraficodonaComponent } from '../components/graficoDona/graficoDona.comp
 		DashboardComponent,
     	ProgressComponent,
     	Graficas1Component,
+    	PromesasComponent,
+    	rxjsComponent,
     	AccountSettingsComponent,
     	IncrementadorComponent,
     	GraficodonaComponent
