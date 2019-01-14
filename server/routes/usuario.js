@@ -1,6 +1,7 @@
 var express = require('express');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+var pagination = require('mongoose-pagination');
 var app = express();
 var Usuario = require('../models/usuario');
 var mdAuthentication = require('../middleware/authentication');
@@ -9,25 +10,31 @@ var mdAuthentication = require('../middleware/authentication');
 // Obtener todos los usuarios
 //=============================
 
-app.get('/', (req, res, next)=>{
+app.get('/:page?', (req, res)=>{
+	if (req.params.page) {
+		var page = req.params.page;
+	}else{
+		var page = 1;
+	}
+	var itemsPerPage = 4;
+
 	Usuario.find({}, 'nombre email img role')
-		.exec( 
-			(err, usuarios)=>{
-				if (err) {
-					return res.status(500).json({
+		.paginate(page, itemsPerPage, (err, usuarios, total)=>{
+			if (err) {
+				return res.status(500).json({
 					ok: false,
 					mensaje: 'Error cargando usuarios',
 					errors: err
-					});
-				}
-
-				res.status(200).json({
-					ok: true,
-					usuarios : usuarios
 				});
-			})
-});
+			}
 
+			res.status(200).json({
+				ok: true,
+				total_usuarios : total,
+				usuarios : usuarios
+			});
+		})
+});
 
 
 //=========================
